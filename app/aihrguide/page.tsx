@@ -33,11 +33,15 @@ export default function AIHRGuidePage() {
             <div className="relative group">
               <div className="absolute -inset-4 bg-gradient-to-r from-[#263c85] to-[#2abec5] rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition duration-300"></div>
               <div className="relative rounded-[18px] shadow-2xl overflow-hidden border-2 border-white/20">
-                <video
-                  src="/AIHR_Video_Guide.mp4"
-                  controls
-                  playsInline
-                  className="block w-full h-[320px] sm:h-[360px] lg:h-[400px] bg-black"
+                <iframe
+                  width="100%"
+                  height="400"
+                  src="https://www.youtube.com/embed/hi1zFhbc4KI"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="block w-full h-[320px] sm:h-[360px] lg:h-[400px] bg-black rounded-[18px]"
                 />
               </div>
             </div>
