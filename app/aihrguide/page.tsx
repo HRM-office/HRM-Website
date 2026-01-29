@@ -212,7 +212,7 @@ export default function AIHRGuidePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="text-2xl font-bold text-white mb-4">HRMOFFICE</div>
-            <div className="text-sm text-gray-400 mb-6">© 2025 HRMOFFICE. All Rights Reserved.</div>
+            <div className="text-sm text-gray-400 mb-6">© {new Date().getFullYear()} HRMOFFICE. All Rights Reserved.</div>
             <p className="text-sm text-gray-400 max-w-3xl mx-auto leading-relaxed">
               HRMOFFICE is dedicated to advancing HR professionals through innovative career development solutions.
               This site is not affiliated with, endorsed by, or sponsored by Meta, Facebook, or Instagram.
