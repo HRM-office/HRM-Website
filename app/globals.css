@@ -1,0 +1,173 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Base styles without Tailwind */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Updated color tokens to match HRM brand colors #263C85 and #2ABEC5 in HSL format */
+  --background: 0 0% 100%; /* White */
+  --foreground: 225 30% 20%; /* Dark gray for text */
+  --card: 0 0% 98%; /* Light gray for cards */
+  --card-foreground: 225 54% 33%; /* Deep blue */
+  --popover: 0 0% 100%; /* White */
+  --popover-foreground: 225 54% 33%; /* Deep blue */
+  --primary: 225 54% 33%; /* Deep blue (#263C85) */
+  --primary-foreground: 0 0% 100%; /* White text on primary */
+  --secondary: 184 64% 46%; /* Teal (#2ABEC5) */
+  --secondary-foreground: 0 0% 100%; /* White text on secondary */
+  --muted: 0 0% 98%; /* Light gray */
+  --muted-foreground: 225 10% 45%; /* Medium gray */
+  --accent: 184 64% 46%; /* Teal accent (#2ABEC5) */
+  --accent-foreground: 0 0% 100%; /* White text on accent */
+  --destructive: 0 85% 60%; /* Red */
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 90%; /* Light border */
+  --input: 0 0% 98%; /* Light input background */
+  --ring: 225 54% 33%; /* Primary color for focus rings */
+  --chart-1: 225 10% 45%; /* Dark gray */
+  --chart-2: 184 64% 46%; /* Teal */
+  --chart-3: 225 54% 33%; /* Deep blue */
+  --chart-4: 0 0% 85%; /* Light gray */
+  --chart-5: 0 85% 60%; /* Red for alerts */
+  --radius: 0.5rem;
+  --sidebar: 0 0% 98%; /* Light sidebar */
+  --sidebar-foreground: 225 30% 20%; /* Dark text */
+  --sidebar-primary: #263C85; /* Deep blue */
+  --sidebar-primary-foreground: #ffffff; /* White */
+  --sidebar-accent: #2ABEC5; /* Teal */
+  --sidebar-accent-foreground: #ffffff; /* White */
+  --sidebar-border: oklch(0.9 0 0); /* Light border */
+  --sidebar-ring: #2ABEC5; /* Teal */
+}
+
+.dark {
+  --background: oklch(0.08 0 0); /* Very dark background */
+  --foreground: oklch(0.95 0 0); /* Light text */
+  --card: oklch(0.12 0 0); /* Dark card background */
+  --card-foreground: oklch(0.95 0 0); /* Light text on cards */
+  --popover: oklch(0.08 0 0); /* Dark popover */
+  --popover-foreground: oklch(0.95 0 0); /* Light text */
+  --primary: #2ABEC5; /* Teal as primary in dark mode */
+  --primary-foreground: #000000; /* Dark text on primary */
+  --secondary: #263C85; /* Deep blue as secondary in dark */
+  --secondary-foreground: oklch(0.95 0 0); /* Light text */
+  --muted: oklch(0.15 0 0); /* Dark muted */
+  --muted-foreground: oklch(0.65 0 0); /* Medium light text */
+  --accent: #2ABEC5; /* Teal accent */
+  --accent-foreground: #000000; /* Dark text on accent */
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.2 0 0); /* Dark border */
+  --input: oklch(0.15 0 0); /* Dark input */
+  --ring: oklch(0.7 0.12 195 / 0.5); /* Teal focus ring */
+  --chart-1: oklch(0.65 0 0);
+  --chart-2: oklch(0.7 0.12 195);
+  --chart-3: oklch(0.25 0.15 258);
+  --chart-4: oklch(0.35 0 0);
+  --chart-5: oklch(0.577 0.245 27.325);
+  --sidebar: oklch(0.12 0 0); /* Dark sidebar */
+  --sidebar-foreground: oklch(0.95 0 0); /* Light text */
+  --sidebar-primary: oklch(0.7 0.12 195); /* Teal primary */
+  --sidebar-primary-foreground: oklch(0.08 0 0); /* Dark text */
+  --sidebar-accent: oklch(0.25 0.15 258); /* Deep blue accent */
+  --sidebar-accent-foreground: oklch(0.95 0 0); /* Light text */
+  --sidebar-border: oklch(0.2 0 0); /* Dark border */
+  --sidebar-ring: oklch(0.25 0.15 258 / 0.5); /* Deep blue ring */
+}
+
+/* Custom HRM brand colors */
+.hrm-blue { color: #263c85; }
+.hrm-teal { color: #2abec5; }
+.hrm-blue-light { color: #3b4f9a; }
+.hrm-teal-light { color: #4ccbd2; }
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Added smooth scrolling and custom scrollbar */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--muted);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+}
+
+/* Added custom animation classes for smooth interactions */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
