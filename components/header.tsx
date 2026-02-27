@@ -56,9 +56,7 @@ export function Header() {
   return (
     <motion.header
       className="sticky top-0 z-50 bg-primary backdrop-blur-lg border-b border-accent/30 shadow-xl"
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      initial={false}
     >
       {/* Top Banner */}
       <div className="hidden md:block w-full bg-gradient-to-r from-accent/20 to-accent/10 border-b border-accent/20 py-2">
@@ -91,7 +89,7 @@ export function Header() {
           <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
             <Link href="/" className="flex items-center">
               <div className="w-40 h-12 overflow-hidden relative">
-                <Image src="/hrm_white.png" alt="HRM Office Logo" fill className="object-contain w-full h-full" />
+                <Image src="/hrm_white.png" alt="HRM Office Logo" fill className="object-contain w-full h-full" priority />
               </div>
             </Link>
           </motion.div>

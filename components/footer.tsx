@@ -13,7 +13,7 @@ const footerSections = [
       { name: "Job & Careers", href: "/jobs" },
       { name: "Blog & Insights", href: "/blog" },
       { name: "Certificate Programs", href: "/training/certificate-programs" },
-      { name: "About Us", href: "/about" },
+      { name: "Privacy Policy", href: "/privacy-policy" },
       { name: "Contact", href: "/contact" },
     ],
   },
@@ -153,7 +153,13 @@ export function Footer() {
           viewport={{ once: true }}
         >
           <div className="text-center">
-            <div className="text-white/70 text-sm">© {new Date().getFullYear()} HRM Office. All rights reserved.</div>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-white/70 text-sm">
+              <div>© {new Date().getFullYear()} HRM Office. All rights reserved.</div>
+              <span className="hidden sm:inline">•</span>
+              <Link href="/privacy-policy" className="hover:text-accent transition-colors">
+                Privacy Policy
+              </Link>
+            </div>
           </div>
         </motion.div>
       </div>

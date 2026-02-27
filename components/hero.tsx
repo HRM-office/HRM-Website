@@ -52,20 +52,16 @@ export function Hero() {
         />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-16">
         <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Content */}
           <motion.div
             className="text-center lg:text-left"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+              initial={false}
           >
             <motion.div
               className="inline-flex items-center rounded-full bg-primary/10 px-4 py-2 text-sm text-primary mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+                initial={false}
             >
               <Star className="w-4 h-4 mr-2 fill-accent text-accent" />
               Leading HR Solutions Provider
@@ -73,27 +69,21 @@ export function Hero() {
 
             <motion.h1
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6 text-balance leading-tight"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+                initial={false}
             >
               Transform Your <span className="bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent">HR Operations</span> with Digital Driven Solutions
             </motion.h1>
 
             <motion.p
               className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl text-pretty"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
+                initial={false}
             >
               We provide comprehensive HR solutions including training, certification, recruitment, and outsourcing services. Elevate your human resources strategy with our expertise.
             </motion.p>
 
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
+                initial={false}
             >
               <Link href="/training">
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-white group px-8 py-6 text-base font-medium rounded-xl">
@@ -114,9 +104,7 @@ export function Hero() {
             {/* Stats */}
             <motion.div
               className="grid grid-cols-2 lg:grid-cols-3 gap-6 mt-12 pt-8 border-t border-gray-200"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
+                initial={false}
             >
               <div className="text-center lg:text-left">
                 <div className="text-2xl md:text-3xl font-bold text-accent mb-1 flex items-center justify-center lg:justify-start">
@@ -138,9 +126,7 @@ export function Hero() {
           {/* Hero Image */}
           <motion.div
             className="relative order-first lg:order-last"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            initial={false}
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <motion.div 
@@ -153,15 +139,14 @@ export function Hero() {
                   alt="Professional HR team collaboration"
                   fill
                   className="object-cover"
+                  priority
                 />
               </motion.div>
               <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
               {/* Floating Card: Certified AIHR Partner (always visible) */}
               <motion.div
                 className="absolute top-4 left-6 w-64 flex flex-col items-center"
-                initial={{ opacity: 0, scale: 0.8, x: -20 }}
-                animate={{ opacity: 1, scale: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 1.2 }}
+                initial={false}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
               >
                 <div className="text-center w-full mb-1 bg-white rounded-xl shadow-lg border border-white/20 p-1.5">
@@ -187,9 +172,7 @@ export function Hero() {
       {/* Scroll Indicator */}
       <motion.div
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.6 }}
+        initial={false}
       >
         <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center">
           <motion.div

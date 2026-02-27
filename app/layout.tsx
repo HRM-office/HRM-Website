@@ -73,12 +73,12 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/favicon.ico" />
       </head>
       <body className={`${inter.className} antialiased`}>
+        <Header />
         <Suspense fallback={<GlobalLoadingSpinner />}>
-          <Header />
           <main>{children}</main>
-          <Footer />
-          <WhatsAppFloat />
         </Suspense>
+        <Footer />
+        <WhatsAppFloat />
       </body>
     </html>
   )
