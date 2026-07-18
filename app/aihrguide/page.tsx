@@ -1,19 +1,202 @@
-import type { Metadata } from "next"
-import Script from 'next/script'
-import Image from 'next/image'
+'use client'
 
-export const metadata: Metadata = {
-  title: "HR Career Development Roadmap",
-  description: "Standalone HR Career Development Roadmap with contact options and disclaimer",
+import type { Metadata } from "next"
+import Image from 'next/image'
+import { useState, useMemo } from "react"
+
+const knowledgeItems = [
+  {
+    id: 1,
+    title: "AIHR AI In HR Video Advert",
+    description: "Introduction to AI in HR with AIHR video guide",
+    type: "video",
+    link: "https://drive.google.com/file/d/1u4xdMBjhKLKD7hAoZ95gKC96fgFyfooQ/view",
+    tags: ["video", "introduction"],
+  },
+  {
+    id: 2,
+    title: "15 ChatGPT Prompts for HR Professionals",
+    description: "Essential ChatGPT prompts to boost HR productivity",
+    type: "guide",
+    link: "https://drive.google.com/file/d/1iRJlynVkTqPyCd392JUuL19MqX0pKCRf/view",
+    tags: ["chatgpt", "prompts"],
+  },
+  {
+    id: 3,
+    title: "AI Risk Assessment Process",
+    description: "Process to assess AI risks in HR operations",
+    type: "tool",
+    link: "https://drive.google.com/file/d/191JZUi2GEi82ZmunoFTMi7OK8t7OF_VO/view",
+    tags: ["risk", "assessment"],
+  },
+  {
+    id: 4,
+    title: "AI Vendor Evaluation Checklist",
+    description: "Checklist to evaluate AI vendors effectively",
+    type: "checklist",
+    link: "https://drive.google.com/file/d/1t5h-ZzztR4MKo9TXx7-_JEnO0vt53vKv/view",
+    tags: ["vendor", "checklist"],
+  },
+  {
+    id: 5,
+    title: "AI Glossary",
+    description: "Key AI terms explained for HR professionals",
+    type: "glossary",
+    link: "https://drive.google.com/file/d/13tXcKkQJiF9FLQwx-JtuztcWHix1lwY0/view",
+    tags: ["glossary", "terms"],
+  },
+  {
+    id: 6,
+    title: "AI in HR Toolbox",
+    description: "Comprehensive AI tools for HR use cases",
+    type: "toolbox",
+    link: "https://drive.google.com/file/d/1Ja8kSFIua3bWdvKrWipd1jV_U9FLORuc/view",
+    tags: ["tools", "toolbox"],
+  },
+  {
+    id: 7,
+    title: "AI Policy Template",
+    description: "Template to create an AI policy for your organization",
+    type: "template",
+    link: "https://drive.google.com/file/d/1TzbgD6QzE9Z5vKbUoFH40sAv8ETn-KvG/view",
+    tags: ["policy", "template"],
+  },
+  {
+    id: 8,
+    title: "AI Skills Framework",
+    description: "Framework to develop AI skills in HR",
+    type: "framework",
+    link: "https://drive.google.com/file/d/1TO1Jasa24uDY32cS16u_5ZTn4F2TfqGi/view",
+    tags: ["skills", "framework"],
+  },
+  {
+    id: 9,
+    title: "AIHR AI in HR Cheat sheet collection",
+    description: "Collection of cheat sheets for AI in HR",
+    type: "cheatsheet",
+    link: "https://drive.google.com/file/d/1N_SspUaa_am3UYkFDJxiYUX9gNXSxdJP/view",
+    tags: ["cheatsheet", "collection"],
+  },
+  {
+    id: 10,
+    title: "AI Strategy Framework",
+    description: "Framework to build an AI strategy for HR",
+    type: "framework",
+    link: "https://drive.google.com/file/d/1KsxokEjT4hFUCm-PuqP1Qwn8-siNXJhd/view",
+    tags: ["strategy", "framework"],
+  },
+  {
+    id: 11,
+    title: "AIHR Post-AI HRBP Model",
+    description: "HR Business Partner model for the AI era",
+    type: "model",
+    link: "https://drive.google.com/file/d/1DHg4G2n6E-dpWWhMclktGedYgdxdaJgG/view",
+    tags: ["hrbp", "model"],
+  },
+  {
+    id: 12,
+    title: "ChatGPT for HR (picture)",
+    description: "Visual guide to using ChatGPT in HR",
+    type: "image",
+    link: "https://drive.google.com/file/d/198Hy_XfS0yGqXtORKsh7j1jxkyXyhomw/view",
+    tags: ["chatgpt", "visual"],
+  },
+  {
+    id: 13,
+    title: "ChatGPT for People Analytics",
+    description: "Leverage ChatGPT for people analytics",
+    type: "guide",
+    link: "https://drive.google.com/file/d/1s4bTp4wV_roloHkT_wTiLxckmWknqkgg/view",
+    tags: ["people analytics", "chatgpt"],
+  },
+  {
+    id: 14,
+    title: "Prompt Design Cheat Sheet",
+    description: "Cheat sheet for effective prompt engineering",
+    type: "cheatsheet",
+    link: "https://drive.google.com/file/d/16H5KrRe07yWf015WAaDTA2Ak007FzEfP/view",
+    tags: ["prompts", "cheatsheet"],
+  },
+  {
+    id: 15,
+    title: "Creating an AI Prompt Template Guide",
+    description: "Guide to creating AI prompt templates",
+    type: "guide",
+    link: "https://drive.google.com/file/d/1oYspgPOWLdwkd3-ze0VapKiHrXZDeYTR/view",
+    tags: ["prompts", "templates"],
+  },
+  {
+    id: 16,
+    title: "Decision Tree for AI Use in Talent Acquisition",
+    description: "Decision tree to guide AI use in talent acquisition",
+    type: "tool",
+    link: "https://drive.google.com/file/d/1ucXceumINiNizeLzU2G7d6fDTC1dl9Co/view",
+    tags: ["talent acquisition", "decision tree"],
+  },
+  {
+    id: 17,
+    title: "GENERATIVE AI USER GUIDELINES",
+    description: "Guidelines for using generative AI responsibly",
+    type: "guidelines",
+    link: "https://drive.google.com/file/d/1SY_HarH5VEdq0q1Vnm85_Qzdj0KQiqrq/view",
+    tags: ["generative ai", "guidelines"],
+  },
+  {
+    id: 18,
+    title: "HR 2026 Starter Guide",
+    description: "Starter guide for HR in 2026",
+    type: "guide",
+    link: "https://drive.google.com/file/d/1erlg0EJO-Yx_VUbeaD3J0v5LhCjv6pdT/view",
+    tags: ["2026", "guide"],
+  },
+  {
+    id: 19,
+    title: "Top AI Tools for HR Professionals",
+    description: "Top AI tools for HR professionals to use",
+    type: "tools",
+    link: "https://drive.google.com/file/d/1s1Hh0p1l5iQoZP9_MjUGzwT4vzVLx5H_/view",
+    tags: ["tools", "top"],
+  },
+]
+
+const typeColors = {
+  video: "bg-purple-100 text-purple-800",
+  guide: "bg-blue-100 text-blue-800",
+  tool: "bg-green-100 text-green-800",
+  checklist: "bg-yellow-100 text-yellow-800",
+  glossary: "bg-orange-100 text-orange-800",
+  toolbox: "bg-teal-100 text-teal-800",
+  template: "bg-pink-100 text-pink-800",
+  framework: "bg-indigo-100 text-indigo-800",
+  cheatsheet: "bg-cyan-100 text-cyan-800",
+  model: "bg-lime-100 text-lime-800",
+  image: "bg-rose-100 text-rose-800",
+  guidelines: "bg-sky-100 text-sky-800",
 }
 
 export default function AIHRGuidePage() {
+  const [searchQuery, setSearchQuery] = useState("")
+  const [selectedType, setSelectedType] = useState("all")
+
+  const uniqueTypes = ["all", ...Array.from(new Set(knowledgeItems.map(item => item.type)))]
+
+  const filteredItems = useMemo(() => {
+    return knowledgeItems.filter((item) => {
+      const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+
+      const matchesType = selectedType === "all" || item.type === selectedType
+      return matchesSearch && matchesType
+    })
+  }, [searchQuery, selectedType])
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 text-[#222]">
-      {/* Mini Header */}
-      <header className="border-b border-gray-200 bg-white/80 backdrop-blur-sm">
+      {/* Header */}
+      <header className="border-b border-gray-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center">
+          <div className="flex items-center justify-between">
             <Image
               src="/logo.png"
               alt="HRMOFFICE"
@@ -26,184 +209,98 @@ export default function AIHRGuidePage() {
         </div>
       </header>
 
-      {/* Video Section */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
-        <div className="mx-auto w-full max-w-[1200px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-r from-[#263c85] to-[#2abec5] rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition duration-300"></div>
-              <div className="relative rounded-[18px] shadow-2xl overflow-hidden border-2 border-white/20">
-                <iframe
-                  width="100%"
-                  height="400"
-                  src="https://www.youtube.com/embed/hi1zFhbc4KI"
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="block w-full h-[320px] sm:h-[360px] lg:h-[400px] bg-black rounded-[18px]"
-                />
-              </div>
-            </div>
-            <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-r from-[#263c85] to-[#2abec5] rounded-2xl blur-lg opacity-20 group-hover:opacity-30 transition duration-300"></div>
-              <div className="relative rounded-[18px] shadow-2xl overflow-hidden border-2 border-white/20">
-                <video
-                  src="/fredTalk.mp4"
-                  controls
-                  playsInline
-                  className="block w-full h-[320px] sm:h-[360px] lg:h-[400px] bg-black"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-3 flex justify-center">
-            <a href="#roadmap-form" aria-label="Go to form" className="animate-bounce bg-white rounded-full p-3 shadow-lg border border-gray-200">
-              <svg className="w-6 h-6 text-[#3b4f9a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Form Section */}
-      <section id="roadmap-form" className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="mx-auto w-full max-w-[1250px]">
-          {/* Single Card holding image + form */}
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 p-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              {/* Book Image (left on large screens) */}
-              <div className="flex items-center justify-center">
-                <Image
-                  src="/mockup.png"
-                  alt="HR Roadmap Preview"
-                  width={800}
-                  height={600}
-                  className="w-full h-auto max-w-[620px]"
-                />
-              </div>
-
-              {/* Form with Sender script (right on large screens) */}
-              <div>
-                <div className="text-center mb-6">
-                  <h3 className="text-xl font-semibold text-[#263c85]">Get Your HR Roadmap</h3>
-                  <p className="text-gray-600 mt-2">Enter your details to access the complete guide</p>
-                </div>
-
-                <Script
-                  id="sender-script"
-                  strategy="afterInteractive"
-                  dangerouslySetInnerHTML={{
-                    __html: `(function (s, e, n, d, er) {
-                      s['Sender'] = er;
-                      s[er] = s[er] || function () {
-                        (s[er].q = s[er].q || []).push(arguments)
-                      }, s[er].l = 1 * new Date();
-                      var a = e.createElement(n),
-                          m = e.getElementsByTagName(n)[0];
-                      a.async = 1;
-                      a.src = d;
-                      m.parentNode.insertBefore(a, m)
-                    })(window, document, 'script', 'https://cdn.sender.net/accounts_resources/universal.js', 'sender');
-                    sender('596df286b97903')`,
-                  }}
-                />
-
-                <div className="w-full">
-                  <div 
-                    dangerouslySetInnerHTML={{ 
-                      __html: '<div style="text-align: center; width: 100%" class="sender-form-field" data-sender-form-id="bkRlBX"></div>' 
-                    }} 
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why This Roadmap Matters */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      {/* Hero Section */}
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-[#263c85] mb-4">Why This Roadmap Matters</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Accelerate your HR career with our carefully crafted development pathway
+          <h1 className="text-4xl font-bold text-[#263c85] mb-4">
+          AIHR Knowledge Hub
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Explore our curated collection of AI in HR resources, guides, tools, and more to help you excel in the AI era.
           </p>
         </div>
-        
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-          <div className="group p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-            <div className="w-12 h-12 bg-gradient-to-br from-[#263c85] to-[#3b4f9a] rounded-xl flex items-center justify-center mb-6">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+
+        {/* Search and Filter */}
+        <div className="max-w-4xl mx-auto mb-12 space-y-4">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-[#263c85] mb-3">Clear Milestones</h3>
-            <p className="text-gray-600">Actionable HR capability milestones with defined progression paths</p>
+            <input
+              type="text"
+              placeholder="Search resources by title, description, or tags..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-12 pr-4 py-4 bg-white border border-gray-200 rounded-2xl shadow-lg focus:ring-2 focus:ring-[#263c85] focus:border-[#263c85] outline-none text-lg"
+            />
           </div>
-          
-          <div className="group p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-            <div className="w-12 h-12 bg-gradient-to-br from-[#2abec5] to-[#4ccbd2] rounded-xl flex items-center justify-center mb-6">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold text-[#263c85] mb-3">Future-Ready Skills</h3>
-            <p className="text-gray-600">Essential skills mapped out to keep you ahead in the evolving HR landscape</p>
-          </div>
-          
-          <div className="group p-8 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-            <div className="w-12 h-12 bg-gradient-to-br from-[#263c85] to-[#2abec5] rounded-xl flex items-center justify-center mb-6">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-semibold text-[#263c85] mb-3">Guided Growth</h3>
-            <p className="text-gray-600">Structured pathway to accelerate your professional development and career growth</p>
+
+          <div className="flex flex-wrap gap-2 justify-center">
+            {uniqueTypes.map((type) => (
+            <button
+              key={type}
+              onClick={() => setSelectedType(type)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                selectedType === type
+                  ? "bg-gradient-to-r from-[#263c85] to-[#2abec5] text-white shadow-lg"
+                  : "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
+              }`}
+            >
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </button>
+          ))}
           </div>
         </div>
-      </section>
 
-      {/* Need Support Section */}
-      <section className="bg-gradient-to-br from-[#263c85] to-[#2abec5] py-20 text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4">Need Support?</h2>
-            <p className="text-white/80 text-lg mb-10">
-              We're here to help you make the most of your HR growth journey
-            </p>
-            
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-2xl mx-auto">
-              <a 
-                href="https://wa.me/+2349049391030" 
-                className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold transition-all duration-300 hover:bg-white hover:text-[#263c85] hover:shadow-xl"
+        {/* Knowledge Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+          {filteredItems.length > 0 ? (
+            filteredItems.map((item) => (
+              <a
+                key={item.id}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893c0-3.189-1.248-6.189-3.515-8.444"/>
-                </svg>
-                WhatsApp
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <span className={`px-3 py-1 text-xs font-semibold rounded-full ${typeColors[item.type as keyof typeof typeColors] || "bg-gray-100 text-gray-800"}`}>
+                      {item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+                    </span>
+                    <svg className="w-5 h-5 text-gray-400 group-hover:text-[#263c85] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-[#263c85] mb-2 group-hover:text-[#2abec5] transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4 line-clamp-2">
+                    {item.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {item.tags.map((tag, idx) => (
+                      <span key={idx} className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </a>
-              
-              <a 
-                href="mailto:aihr@hrmoffice.org" 
-                className="group flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold transition-all duration-300 hover:bg-white hover:text-[#263c85] hover:shadow-xl"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            ))
+          ) : (
+            <div className="col-span-full text-center py-16">
+              <div className="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Email Us
-              </a>
-              
-              <div 
-                className="group flex flex-col items-center justify-center gap-1 px-6 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold transition-all duration-300 hover:bg-white hover:text-[#263c85] hover:shadow-xl"
-              >
-                <a href="tel:+2348032613268" className="hover:underline">+234 803 261 3268</a>
-                <a href="tel:+2349049391030" className="hover:underline">+234 904 939 1030</a>
               </div>
+              <h3 className="text-xl font-semibold text-gray-700 mb-2">No resources found</h3>
+              <p className="text-gray-500">Try adjusting your search or filter to find what you're looking for.</p>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
