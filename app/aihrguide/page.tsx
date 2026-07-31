@@ -902,6 +902,7 @@ function ResourceScreen({
               <div className="text-sm font-black text-slate-500">Key takeaway</div>
               <p className="mt-1 text-sm leading-6 text-slate-700">{resource.takeaway}</p>
             </div>
+            {/* uyu */}
             <div className="mt-3 rounded-lg border border-slate-200 p-4">
               <div className="text-sm font-black text-slate-500">How to use it</div>
               <p className="mt-1 text-sm leading-6 text-slate-700">
