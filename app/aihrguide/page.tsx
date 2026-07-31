@@ -610,7 +610,7 @@ function CollectionScreen({
   onOpenResource: (resource: Resource) => void
 }) {
   const Icon = collection.icon
-  const primaryDownload = resources.find((resource) => resource.type !== "Video") || resources[0]
+  const primaryDownload = resources[0]
 
   return (
     <main className="min-h-screen bg-background text-slate-950">
@@ -902,7 +902,7 @@ function ResourceScreen({
               <div className="text-sm font-black text-slate-500">Key takeaway</div>
               <p className="mt-1 text-sm leading-6 text-slate-700">{resource.takeaway}</p>
             </div>
-            {/* uyu */}
+            
             <div className="mt-3 rounded-lg border border-slate-200 p-4">
               <div className="text-sm font-black text-slate-500">How to use it</div>
               <p className="mt-1 text-sm leading-6 text-slate-700">
