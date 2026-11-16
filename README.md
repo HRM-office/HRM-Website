@@ -1,83 +1,45 @@
-# HRM Office - Professional HR Services & Training
+# HRM Office website
 
-A comprehensive Human Resource Management website built with Next.js, offering professional HR services, training programs, and business solutions.
+The hrmoffice.org website: recruitment, HR outsourcing, HR software and AIHR training for companies and HR professionals in Nigeria and across Africa.
 
-## 🌟 Features
+## Stack
 
-- **Professional HR Services**: Recruitment, HR outsourcing, and business consulting
-- **AIHR Certified Training**: Comprehensive HR certification programs and courses
-- **Modern UI/UX**: Built with Tailwind CSS and Framer Motion animations
-- **Responsive Design**: Optimized for all devices and screen sizes
-- **SEO Optimized**: Dynamic page titles and meta descriptions
-- **Fast Performance**: Next.js 14 with optimized builds
+- Next.js 15 (App Router), React 19, plain JavaScript
+- One stylesheet: `app/globals.css`
+- Icons: Phosphor (duotone; brand logos use `weight="fill"`)
+- Contact and mentorship forms send email through `app/api/*/route.js` with nodemailer (Gmail)
 
-## 🚀 Services Offered
+## Run locally
 
-- **HR Training & Certification**: AIHR-accredited programs
-- **Recruitment Services**: Professional talent acquisition
-- **HR Outsourcing**: Complete HR management solutions
-- **Business Consulting**: Strategic HR planning and implementation
-- **HR Software Solutions**: Digital HR management tools
-
-## 🛠️ Tech Stack
-
-- **Framework**: Next.js 14 (App Router)
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **TypeScript**: Full type safety
-- **Components**: Shadcn/ui component library
-
-## 📁 Project Structure
-
-```
-hrmwebpage/
-├── app/                 # Next.js app directory
-│   ├── about/          # About page
-│   ├── blog/           # Blog/insights page
-│   ├── contact/        # Contact page
-│   ├── training/       # Training programs
-│   └── ...             # Other service pages
-├── components/         # Reusable React components
-├── public/            # Static assets and images
-└── lib/               # Utility functions
+```bash
+npm ci
+cp .env.local.example .env.local   # then fill in the values
+npm run dev                        # http://localhost:3000
 ```
 
-## 🚀 Getting Started
+## Environment
 
-1. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+| Variable | What it is |
+| --- | --- |
+| `EMAIL_USER` | Gmail address that sends the form emails |
+| `EMAIL_PASS` | A Gmail **app password** for that address (not the account password) |
+| `EMAIL_TO` | Inbox that receives contact and mentorship messages |
 
-2. **Run development server**:
-   ```bash
-   npm run dev
-   ```
+Without these, the forms show "Messaging is not set up yet" and offer WhatsApp instead.
 
-3. **Open your browser** to [http://localhost:3000](http://localhost:3000)
+## Where things live
 
-## 📜 Available Scripts
+- `app/`: one folder per page; `app/training/[slug]/` renders the AIHR program pages
+- `components/`: header, footer, shared sections (`ui.js`), forms, interactive pieces
+- `lib/content.js`: contact details, programs, testimonials, downloads
+- `lib/posts.json`: blog articles; `lib/resources.json`: the AI in HR library
+- `public/AI-HR/`: downloadable AI in HR files
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
+## Checks
 
-## 🎯 Key Pages
+```bash
+npm run lint
+npm run build
+```
 
-- **Home**: Overview of HR services and company mission
-- **About**: Company background and values
-- **Training**: AIHR certified programs and courses
-- **Recruitment**: Professional hiring services
-- **HR Software**: Digital HR management solutions
-- **Blog**: HR insights and industry updates
-- **Contact**: Get in touch with our team
-
-## 📋 Requirements
-
-- Node.js 18+
-- npm 9+
-
----
-
-**HRM Office** - Transforming HR management across Africa with innovative solutions and world-class training programs.
+Both run on every push and pull request (`.github/workflows/ci-cd.yml`).
