@@ -36,10 +36,14 @@ export const GiftIcon = ({ className = "" }) => (
       <linearGradient id="gi-box" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffcf5c" /><stop offset="1" stopColor="#f08a1c" /></linearGradient>
       <linearGradient id="gi-lid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffe08a" /><stop offset="1" stopColor="#f7b32b" /></linearGradient>
     </defs>
-    <path d="M14 15c-4-5 1-10 6-6l4 5 4-5c5-4 10 1 6 6" fill="none" stroke="#2bbec5" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
     <rect x="9" y="22" width="30" height="20" rx="3" fill="url(#gi-box)" />
-    <rect x="7" y="15" width="34" height="9" rx="2.5" fill="url(#gi-lid)" />
-    <rect x="21.5" y="15" width="5" height="27" fill="#263d85" />
+    <rect x="21.5" y="22" width="5" height="20" fill="#263d85" />
+    <g className="giftic__lid">
+      <path d="M14 15c-4-5 1-10 6-6l4 5 4-5c5-4 10 1 6 6" fill="none" stroke="#2bbec5" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="7" y="15" width="34" height="9" rx="2.5" fill="url(#gi-lid)" />
+      <rect x="21.5" y="15" width="5" height="9" fill="#263d85" />
+    </g>
+    <g className="giftic__spark" fill="#ffd77a"><path d="M40 5l1.4 3.6L45 10l-3.6 1.4L40 15l-1.4-3.6L35 10l3.6-1.4z" /><circle cx="8" cy="9" r="1.6" /></g>
     <rect x="9" y="24" width="30" height="2" fill="#000" opacity=".12" />
   </svg>
 );

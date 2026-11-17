@@ -2337,3 +2337,131 @@ html[data-gift] .promo { display: none; }
 .promo { bottom: 28px; }
 @media (max-width: 1280px) { .wafab, .gift--peek { bottom: 96px; } }
 @media (max-width: 700px) { .wafab, .gift--peek { bottom: 32px; } body:has(.promo) .wafab { bottom: 168px; } .promo { bottom: 20px; } }
+
+/* Promo: AIHR logo matches the button height. */
+.promo__aihr { width: auto; height: 48px; border-radius: 10px; }
+
+/* Gift icons: every few seconds the gift hops, the lid lifts and a little sparkle pops. */
+.giftic__lid { transform-box: fill-box; transform-origin: 50% 100%; }
+.promo__gift, .gift__icon { overflow: visible; }
+.promo__giftbox, .gift__mini { overflow: visible; animation: gift-hop 4.5s cubic-bezier(.3, .7, .3, 1) infinite; transform-origin: 50% 100%; }
+.promo__giftbox .giftic__lid, .gift__mini .giftic__lid { animation: gift-lift 4.5s cubic-bezier(.3, .7, .3, 1) infinite; }
+.giftic__spark { opacity: 0; transform-box: fill-box; transform-origin: center; animation: gift-spark 4.5s ease-out infinite; }
+@keyframes gift-hop { 0%, 72%, 100% { transform: none; } 76% { transform: translateY(1px) scale(1.06, .94); } 82% { transform: translateY(-6px) rotate(-6deg); } 88% { transform: translateY(0) rotate(4deg); } 93% { transform: rotate(-2deg); } }
+@keyframes gift-lift { 0%, 76%, 100% { transform: none; } 82% { transform: translateY(-4px) rotate(-8deg); } 90% { transform: none; } }
+@keyframes gift-spark { 0%, 78% { opacity: 0; transform: scale(.3); } 84% { opacity: 1; transform: scale(1.1); } 94%, 100% { opacity: 0; transform: scale(.6) translateY(-3px); } }
+@media (prefers-reduced-motion: reduce) { .promo__giftbox, .gift__mini, .giftic__lid, .giftic__spark { animation: none; } }
+
+/* ===================== Mobile pass: compact, decisive, one column ===================== */
+
+/* Training tile: waist-up portrait fills the frame height, stays bold. */
+.tile__cut { right: 3%; height: 100%; max-width: 56%; }
+
+/* Compare: phones get one card per service; the table stays on larger screens. */
+.cmpm { display: none; }
+@media (max-width: 700px) {
+  .cmp { background: none; box-shadow: none; overflow: visible; }
+  .cmp table { display: none; }
+  .cmpm { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .cmpm > li { padding: 18px; border-radius: 20px; background: #fff; box-shadow: 0 0 0 1px rgb(38 61 133 / .08), 0 18px 36px -28px rgb(17 26 61 / .45); }
+  .cmpm__head { display: flex; align-items: center; gap: 12px; }
+  .cmpm__ico { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--navy-50); color: var(--navy); }
+  .cmpm__head b { display: block; color: var(--navy-950); font-size: 1.05rem; line-height: 1.2; }
+  .cmpm__head small { color: var(--muted); font-size: .85rem; }
+  .cmpm__list { display: grid; gap: 6px; margin: 14px 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); list-style: none; }
+  .cmpm__list li { position: relative; padding-left: 24px; color: var(--ink); font-size: .9rem; line-height: 1.4; }
+  .cmpm__list li::before { content: ""; position: absolute; left: 0; top: 2px; width: 16px; height: 16px; border-radius: 50%; background: var(--teal) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 10px no-repeat; }
+  .cmpm__acts { display: flex; align-items: center; gap: 16px; margin-top: 14px; }
+  .cmpm__acts .cmp__cta { margin: 0; }
+  .cmpm__more { color: var(--navy); font-size: .9rem; font-weight: 600; }
+}
+
+@media (max-width: 600px) {
+  /* Announcement: one balanced line. The whole bar is the link, so the extra label can go. */
+  .announce { flex-wrap: nowrap; padding: 8px 12px; font-size: .78rem; letter-spacing: 0; }
+  .announce__badge { letter-spacing: .01em; white-space: nowrap; }
+  .announce b { display: none; }
+
+  /* Hero search tabs: every label on one line. */
+  .hp__tab { white-space: nowrap; font-size: .78rem; padding: 0 6px; min-height: 38px; }
+
+  /* Page heroes: the picture supports, it shouldn't take a second screen. */
+  .net { height: 220px; }
+  .seat { height: 240px; }
+  .phero .btn-row .btn { min-height: 46px; }
+
+  /* Service tiles: photo band and copy only; the product mock cards are a desktop detail. */
+  .tile__art { padding-bottom: 0; }
+  .tile__photo { height: 190px; }
+  .frag, .frag-img { display: none; }
+  .tile__cut { top: auto; bottom: 0; height: 190px; max-width: 60%; }
+  .tile__badge { top: 12px; right: 12px; }
+  .tile__copy { padding: 16px 18px 20px; }
+  .tile h3 { font-size: 1.25rem; }
+  .tile__body { margin-top: 6px; font-size: .9rem; line-height: 1.5; }
+  .tile__cta { margin-top: 10px; }
+
+  /* Client stories: shorter card, quote clamped, tighter footer. */
+  .tq { padding: 22px 20px; border-radius: 22px; }
+  .tq::before { font-size: 6rem; right: 14px; }
+  .tq__pull { margin-top: 10px; font-size: 1.3rem; line-height: 1.2; }
+  .tq__body { margin-top: 12px; font-size: .92rem; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  .tq figcaption { margin-top: 16px; padding-top: 14px; gap: 10px; }
+  .tq__mono { width: 40px; height: 40px; font-size: .85rem; }
+  .tq figcaption small { font-size: .8rem; }
+  .tq-track { padding-bottom: 20px; }
+
+  /* Closing card: headline and buttons only. */
+  .close2 { padding-top: 40px; background: linear-gradient(#fff 0 70%, var(--navy-950) 70% 100%); }
+  .close2__card { padding: 26px 22px; border-radius: 24px; gap: 0; }
+  .close2__side, .close2__photos { display: none; }
+  .close2__copy h2 { font-size: 1.65rem; }
+  .close2__copy > p:not(.eyebrow) { margin-top: 10px; font-size: .95rem; }
+  .close2__actions { margin-top: 20px; gap: 10px 18px; }
+  .close2__actions .btn { width: 100%; justify-content: center; }
+
+  /* FAQ: question list first, compact rows, the help card after. */
+  .faq2__in { gap: 18px; }
+  .faq2__head { display: contents; }
+  .faq2__head .eyebrow { order: 0; margin-bottom: -10px; }
+  .faq2__head h2 { order: 1; font-size: 1.75rem; }
+  .faq2__list { order: 2; gap: 8px; }
+  .faq2__help { order: 3; margin-top: 4px; padding: 18px; }
+  .faq2__list details { border-radius: 14px; background: #fff; }
+  .faq2__list summary { gap: 12px; padding: 16px; font-size: .98rem; line-height: 1.35; }
+  .faq2__list summary i { width: 26px; height: 26px; }
+  .faq2__list summary i::before, .faq2__list summary i::after { left: 8px; right: 8px; top: 12px; }
+  .faq2__list details p { padding: 0 16px 16px 44px; font-size: .92rem; line-height: 1.55; }
+}
+
+/* Phone type scale: one step down, steady rhythm (headline 1.06, sub-heads 1.12, body 1.55). */
+@media (max-width: 600px) {
+  h1, .phero h1 { font-size: 2.2rem; line-height: 1.06; }
+  h2 { font-size: 1.7rem; line-height: 1.12; }
+  .lede, .phero .lede { margin-top: 14px; font-size: 1rem; line-height: 1.55; }
+  .eyebrow { margin-bottom: 10px; }
+  .section { padding-block: 56px; }
+}
+@media (max-width: 700px) { .cmpm .cmp__cta { display: inline-flex; } }
+@media (max-width: 640px) {
+  /* Program levels: one swipeable row instead of three stacked buttons. */
+  .prog__tabs { flex-wrap: nowrap; justify-content: flex-start; width: 100%; overflow-x: auto; scrollbar-width: none; border-radius: 999px; }
+  .prog__tabs::-webkit-scrollbar { display: none; }
+  .prog__tabs button { flex: none; padding: 0 14px; font-size: .85rem; white-space: nowrap; }
+  .prog__tabs button svg { display: none; }
+  /* Training hero hexagons: smaller so the page starts sooner. */
+  .hexp { width: min(100%, 290px); margin-bottom: 28px; }
+}
+/* About mission on phones: a short stacked list, not a 4-screen pinned scroll. */
+@media (max-width: 600px) {
+  .story { height: auto; }
+  .story__pin { position: static; height: auto; padding-block: 56px; }
+  .story__rail, .story__cube { display: none; }
+  .story__stage { height: auto; display: grid; gap: 10px; }
+  .story__card { position: static; min-height: 0; padding: 18px; border-radius: 20px; opacity: 1 !important; transform: none !important; }
+  .story__ico { width: 40px; height: 40px; border-radius: 12px; }
+  .story__top b { font-size: 1.8rem; }
+  .story__card h3 { margin-top: 12px; font-size: 1.2rem; }
+  .story__card p { margin-top: 6px; font-size: .92rem; }
+  .story__card--end p { font-size: 1rem; }
+}

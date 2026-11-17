@@ -105,6 +105,26 @@ export function Compare() {
           );
         })}
       </table>
+      {/* Phones: one card per service listing what it covers, instead of a table squeezed into icons. */}
+      <ul className="cmpm">
+        {SERVICES.map(([href, name, who, icon, cta, ctaHref], n) => {
+          const covers = GROUPS.flatMap(([, items]) => items.filter(([, f]) => f[n]).map(([label]) => label));
+          const Cta = ctaHref.startsWith("http") ? "a" : Link;
+          return (
+            <li key={href}>
+              <div className="cmpm__head">
+                <span className="cmpm__ico"><Icon name={icon} size={20} /></span>
+                <span><b>{name}</b><small>{who}</small></span>
+              </div>
+              <ul className="cmpm__list">{covers.slice(0, 4).map((c) => <li key={c}>{c}</li>)}</ul>
+              <div className="cmpm__acts">
+                <Cta className="cmp__cta" href={ctaHref}>{cta}</Cta>
+                <Link className="cmpm__more" href={href}>Learn more</Link>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { WHATSAPP } from "@/lib/content";
+import { EMAIL, WHATSAPP } from "@/lib/content";
 import { Arrow } from "./ui";
 
 export function MentorshipForm() {
-  const [state, setState] = useState("idle"); // idle | sending | sent
+  const [state, setState] = useState("idle"); // idle | sent
   const [error, setError] = useState("");
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (!form.checkValidity()) {
@@ -16,29 +16,28 @@ export function MentorshipForm() {
       form.querySelector(":invalid")?.focus();
       return;
     }
-    setError(""); setState("sending");
+    setError("");
     const d = Object.fromEntries(new FormData(form));
-    try {
-      const res = await fetch("/api/mentorship/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...d, agree: d.agree ? "Yes" : "" }) });
-      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error);
-      setState("sent");
-    } catch (err) {
-      setState("idle");
-      setError(err.message || "We couldn't send your application. Try again, or apply on WhatsApp.");
-    }
+    const text = encodeURIComponent([
+      "HR Mentorship application", "",
+      `Name: ${d.name}`, `Email: ${d.email}`, d.phone && `Phone: ${d.phone}`,
+      d.message && `About me: ${d.message}`, "I agree to take part in the HR Mentorship program.",
+    ].filter(Boolean).join("\n"));
+    if (e.nativeEvent.submitter?.value === "whatsapp") window.open(`${WHATSAPP}?text=${text}`, "_blank", "noopener");
+    else window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(`HR Mentorship application from ${d.name}`)}&body=${text}`;
+    setState("sent");
   };
 
   if (state === "sent") {
     return (
       <div className="form form--sent" role="status">
-        <h2>Application received.</h2>
-        <p>Thank you. We&apos;ll contact you within 24 to 48 hours about next steps.</p>
+        <h2>Your application is ready to send.</h2>
+        <p>It opened in WhatsApp or your email app. Press send there and we&apos;ll be in touch within 24 to 48 hours.</p>
       </div>
     );
   }
-  const sending = state === "sending";
   return (
-    <form className="form" onSubmit={onSubmit} noValidate aria-busy={sending}>
+    <form className="form" onSubmit={onSubmit} noValidate>
       <div className="form__row">
         <div className="field"><label htmlFor="m-name">Full name</label><input id="m-name" name="name" autoComplete="name" required /></div>
         <div className="field"><label htmlFor="m-email">Email</label><input id="m-email" name="email" type="email" autoComplete="email" spellCheck={false} required /></div>
@@ -55,8 +54,8 @@ export function MentorshipForm() {
       </label>
       <div aria-live="polite">{error && <p className="form__error">{error}</p>}</div>
       <div className="form__send">
-        <button className="btn btn--navy" type="submit" disabled={sending}>{sending ? "Sending…" : "Apply now"} <Arrow /></button>
-        <a className="btn btn--wa" href={`${WHATSAPP}?text=${encodeURIComponent("Hello HRM Office, I'd like to join the HR Mentorship program.")}`} target="_blank" rel="noopener">Apply on WhatsApp <Arrow /></a>
+        <button className="btn btn--navy" type="submit" name="via" value="email">Apply by email <Arrow /></button>
+        <button className="btn btn--wa" type="submit" name="via" value="whatsapp">Apply on WhatsApp <Arrow /></button>
       </div>
     </form>
   );

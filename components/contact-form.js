@@ -10,9 +10,9 @@ const TOPICS = ["General", "Recruitment", "HR outsourcing", "HR software", "Trai
 // topic comes from the link the visitor followed (for example /contact/?topic=Recruitment).
 export function ContactForm({ topic }) {
   const [error, setError] = useState("");
-  const [state, setState] = useState("idle"); // idle | sending | sent
+  const [state, setState] = useState("idle"); // idle | sent
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (!form.checkValidity()) {
@@ -33,35 +33,27 @@ export function ContactForm({ topic }) {
     ].filter((l) => l || l === "");
     const body = encodeURIComponent(lines.join("\n"));
 
+    // Messages go straight to our team: WhatsApp chat or the official inbox, ready to send.
     if (e.nativeEvent.submitter?.value === "whatsapp") {
       window.open(`${WHATSAPP}?text=${body}`, "_blank", "noopener");
-      return;
+    } else {
+      window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(`${d.topic} enquiry from ${d.name}`)}&body=${body}`;
     }
-    setState("sending");
-    try {
-      // Sent by our own /api/contact route (Gmail via nodemailer), same as the live site.
-      const res = await fetch("/api/contact/", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d) });
-      if (!res.ok) throw new Error(String(res.status));
-      setState("sent");
-    } catch {
-      setState("idle");
-      setError(`We couldn't send your message. Try again, send it on WhatsApp, or email ${EMAIL}.`);
-    }
+    setState("sent");
   };
 
   if (state === "sent") {
     return (
       <div className="form form--sent" role="status">
-        <h2>Message sent.</h2>
-        <p>Thank you. Our Lagos team will reply to the email address you gave us.</p>
+        <h2>Your message is ready to send.</h2>
+        <p>It opened in WhatsApp or your email app. Press send there and our Lagos team will reply the same working day.</p>
         <p className="form__next">Need us sooner? Call <a href={PHONE_HREF}>{PHONE}</a> or <a href={WHATSAPP}>chat on WhatsApp</a>.</p>
       </div>
     );
   }
 
-  const sending = state === "sending";
   return (
-    <form className="form" onSubmit={onSubmit} noValidate aria-busy={sending}>
+    <form className="form" onSubmit={onSubmit} noValidate>
       <div className="form__row">
         <div className="field">
           <label htmlFor="name">Full name</label>
@@ -96,11 +88,11 @@ export function ContactForm({ topic }) {
         <div aria-live="polite">{error && <p className="form__error">{error}</p>}</div>
       </div>
       <div className="form__send">
-        <button className="btn btn--navy" type="submit" name="via" value="email" disabled={sending}>{sending ? "Sending…" : "Send message"} <Arrow /></button>
-        <button className="btn btn--wa" type="submit" name="via" value="whatsapp" disabled={sending}>Send on WhatsApp <Arrow /></button>
+        <button className="btn btn--navy" type="submit" name="via" value="email">Send by email <Arrow /></button>
+        <button className="btn btn--wa" type="submit" name="via" value="whatsapp">Send on WhatsApp <Arrow /></button>
       </div>
       <p className="form__next">
-        We reply to the email address you give us, usually the same working day.
+        Opens WhatsApp or your email app with your message ready to send to {EMAIL}.
       </p>
     </form>
   );
