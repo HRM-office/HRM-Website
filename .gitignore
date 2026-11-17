@@ -10,3 +10,6 @@ out/
 node_modules.zip
 server.zip
 public/AIHR_Video_Guide.mp4
+
+# Local environment
+.env*.local
