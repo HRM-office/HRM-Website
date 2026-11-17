@@ -261,7 +261,6 @@ export const Closing = ({ title, lede, action = "Book a consultation", topic }) 
         <div className="close2__photos" aria-hidden="true">
           <span><Crop photo={PHOTOS.callDesk} sizes="260px" /></span>
           <span><Crop photo={PHOTOS.meetingWomen} sizes="260px" /></span>
-          <i>Lagos office · Mon to Fri</i>
         </div>
         </div>
       </div>

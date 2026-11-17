@@ -117,6 +117,9 @@ export function Header() {
                     {group.href === "/training/" && (
                       <Image quality={90} className="drop__aihr" src="/brand/aihr-logo.png" alt="AIHR" width={1200} height={348} sizes="120px" />
                     )}
+                    {group.href === "/training/" && (
+                      <Image quality={90} className="drop__person" src="/photos/cut-arms.webp" alt="" width={856} height={1400} sizes="200px" />
+                    )}
                     <b>{group.feature.title}</b>
                     <small>{group.feature.text}</small>
                     <span>{group.feature.cta} →</span>

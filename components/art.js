@@ -17,8 +17,11 @@ const strip = (points, fill) => (
   <polygon key={points} points={points} fill={`url(#${fill})`} stroke={`url(#${fill})`} strokeWidth="2.4" strokeLinejoin="round" />
 );
 
+const TAB_COLORS = ["#2bbec5", "#ffffff", "#f2792b", "#263d85", "#ffd77a", "#7ae0e5", "#ffffff", "#c2410c", "#4a6fd0"];
+
 // Isometric cube built from fluted glass ribs.
-export function RibCube({ tone = "teal", className = "", style }) {
+// With `files`, the cube reads as a box of filed folders: index tabs stand up from the top.
+export function RibCube({ tone = "teal", className = "", style, files = false }) {
   const t = TONES[tone];
   const N = 9;
   const w = 90 / N;
@@ -38,54 +41,27 @@ export function RibCube({ tone = "teal", className = "", style }) {
     const ey = 60 - (i * w + w - 1.4) * (50 / 90);
     ribs.push(strip(`${sx},${sy} ${ex},${ey} ${ex + 88},${ey + 49} ${sx + 88},${sy + 49}`, `c-${tone}-t`));
   }
+  // files: each rib on the top face is a folder, with a coloured index tab standing up at its back edge.
+  const tabs = files ? Array.from({ length: N }, (_, i) => {
+    const sx = 10 + i * w + 1, sy = 60 - (i * w + 1) * (50 / 90);
+    const at = [0.62, 0.3, 0.78, 0.45, 0.15, 0.7, 0.36, 0.86, 0.52][i];
+    const x = sx + 88 * at, y = sy + 49 * at, dx = 13, dy = 13 * (49 / 88), h = 9;
+    return <polygon key={`tab${i}`} points={`${x},${y} ${x + dx},${y + dy} ${x + dx},${y + dy - h} ${x + 2},${y - h + 1}`} fill={TAB_COLORS[i % TAB_COLORS.length]} stroke="#0d1433" strokeOpacity=".15" strokeWidth=".6" />;
+  }) : null;
   return (
-    <svg className={`cube ${className}`} style={style} viewBox="0 0 200 220" aria-hidden="true">
+    <svg className={`cube ${className}`} style={style} viewBox={files ? "0 -6 200 226" : "0 0 200 220"} aria-hidden="true">
       <defs>
         <Flute id={`c-${tone}-t`} stops={t.top} />
         <Flute id={`c-${tone}-l`} stops={t.left} />
         <Flute id={`c-${tone}-r`} stops={t.right} />
       </defs>
       {ribs}
+      {tabs}
     </svg>
   );
 }
 
 // A document folder with papers tucked inside, leaning back for depth.
-// [label, tab x, tab y, tab width, colour], back to front.
-const FILES = [
-  ["Payroll", 34, 16, 50, "#263d85"],
-  ["Hiring", 90, 24, 44, "#0f7a80"],
-  ["Leave", 140, 32, 42, "#c2410c"],
-  ["Training", 44, 42, 54, "#6d4bc4"],
-  ["Compliance", 104, 52, 66, "#1d5fa8"],
-];
-
-export const Folder3D = ({ className = "" }) => (
-  <svg className={`cube ${className}`} viewBox="0 0 220 200" aria-hidden="true">
-    <defs>
-      <linearGradient id="fd-back" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f2a024" /><stop offset="1" stopColor="#c8680c" /></linearGradient>
-      <linearGradient id="fd-front" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#ffd77a" /><stop offset=".55" stopColor="#f7b32b" /><stop offset="1" stopColor="#ec8a1e" /></linearGradient>
-      <linearGradient id="fd-paper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffffff" /><stop offset="1" stopColor="#dfe6f7" /></linearGradient>
-    </defs>
-    <g transform="matrix(1 -.12 0 1 0 22)">
-      <path d="M18 40a8 8 0 0 1 8-8h52l14 16h102a8 8 0 0 1 8 8v112a8 8 0 0 1-8 8H26a8 8 0 0 1-8-8z" fill="url(#fd-back)" />
-      {/* Divider sheets with labelled tabs: the HR functions filed inside. The front ones are half hidden on purpose. */}
-      {FILES.map(([label, x, y, w, color], i) => (
-        <g key={label} fontFamily="inherit">
-          <rect x={x} y={y} width={w} height="16" rx="5" fill={color} />
-          <rect x="28" y={y + 12} width="164" height="110" rx="5" fill={i % 2 ? "#eef2fb" : "url(#fd-paper)"} />
-          <rect x={x} y={y + 9} width={w} height="7" fill={color} />
-          <text x={x + w / 2} y={y + 11.5} textAnchor="middle" fontSize="8.5" fontWeight="700" fill="#fff">{label}</text>
-        </g>
-      ))}
-      <path d="M10 84a8 8 0 0 1 8-8h184a8 8 0 0 1 8 9l-10 92a8 8 0 0 1-8 7H26a8 8 0 0 1-8-7z" fill="url(#fd-front)" />
-      <path d="M20 84h182" stroke="#fff" strokeWidth="3" strokeLinecap="round" opacity=".55" />
-      <rect x="74" y="120" width="76" height="22" rx="5" fill="#fff" opacity=".9" />
-      <text x="112" y="135" textAnchor="middle" fontSize="10" fontWeight="700" fill="#263d85" fontFamily="inherit">HR files</text>
-    </g>
-  </svg>
-);
-
 const BINDERS = [["#263d85", "#1a2758", "#4a6fd0"], ["#2bbec5", "#147f87", "#7ae0e5"], ["#f7b32b", "#c8800c", "#ffd77a"], ["#f2792b", "#b94c16", "#ffad78"]];
 
 // A tray of upright binders: the paperwork we take off your hands.

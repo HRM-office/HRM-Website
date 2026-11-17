@@ -23,8 +23,8 @@ export default async function Page({ searchParams }) {
         <div className="wrap ct__in">
           <div className="ct__intro">
             <p className="eyebrow">Contact us</p>
-            <h1>Talk to a person, not a ticket.</h1>
-            <p className="lede">A role to fill, HR to hand over or a program to choose. Tell us what you need and our Lagos team replies the same working day.</p>
+            <h1>Talk to us.</h1>
+            <p className="lede">Tell us what you need and we&apos;ll reply the same working day.</p>
             <ul className="ct__channels">
               {CHANNELS.map(([icon, label, detail, href, cta]) => (
                 <li key={label}>

@@ -1,5 +1,6 @@
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
+import { GiftOffer } from "@/components/gift";
 import { PromoBar } from "@/components/promo-bar";
 import { Footer, Header } from "@/components/site";
 import { EMAIL, WHATSAPP } from "@/lib/content";
@@ -56,6 +57,7 @@ export default function RootLayout({ children }) {
           <span className="wafab__tip"><b>Chat with us on WhatsApp</b><small>Our Lagos team replies the same working day</small></span>
         </a>
         <PromoBar />
+        <GiftOffer />
       </body>
     </html>
   );

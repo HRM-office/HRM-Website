@@ -42,7 +42,7 @@ function useTyped(lines, onEnd) {
       const full = lines[line];
       if (!deleting) {
         len++;
-        if (len >= full.length) { deleting = true; t = setTimeout(tick, 1700); setText(full); setDone(true); return; }
+        if (len >= full.length) { deleting = true; t = setTimeout(tick, 2200); setText(full); setDone(true); return; }
       } else {
         setDone(false);
         len--;
@@ -52,7 +52,7 @@ function useTyped(lines, onEnd) {
         }
       }
       setText(lines[line].slice(0, len));
-      t = setTimeout(tick, deleting ? 22 : 48);
+      t = setTimeout(tick, deleting ? 30 : 68);
     };
     setText("");
     t = setTimeout(tick, 250);

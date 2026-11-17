@@ -59,7 +59,7 @@ export const TILES = [
   { id: "outsourcing", icon: "hands", tone: "navy", label: "HR outsourcing", title: "Focus on your core business.", body: "Our team runs policy, compliance, employee relations and performance, and you see every open item.", href: "/outsourcing/", cta: "Explore outsourcing", top: true, photo: { ...PHOTOS.teamLaptop, pos: "50% 29%" }, frag: <Desk /> },
   { id: "software", icon: "grid", tone: "teal", label: "HR software", title: "One system for everyday HR.", body: "Employee records, self service, payroll and reporting in one place your managers will actually use.", href: "/hr-software/", cta: "Explore HR software", photo: { ...PHOTOS.callDesk, pos: "60% 40%" }, frag: <Payroll /> },
   { id: "recruitment", icon: "users", tone: "amber", label: "Recruitment", title: "The right talent, without the chase.", body: "We write the brief, source, screen and book interviews, then see your hire through to day one.", href: "/recruitment/", cta: "Explore recruitment", photo: PHOTOS.interview, frag: <Candidate /> },
-  { id: "training", icon: "cap", tone: "sky", label: "Training and certification", title: "Train your people, grow your career.", body: "AIHR certification for HR professionals, and tailored training for your staff and managers.", href: "/training/", cta: "Explore training", badge: ["Now enrolling", "10% off for members"], photo: { ...PHOTOS.deskSmile, pos: "35% 26%" }, frag: <Course /> },
+  { id: "training", icon: "cap", tone: "sky", label: "Training and certification", title: "Train your people, grow your career.", body: "AIHR certification for HR professionals, and tailored training for your staff and managers.", href: "/training/", cta: "Explore training", badge: ["Now enrolling", "10% off for members"], photo: { ...PHOTOS.lobby, pos: "50% 40%" }, cut: ["/photos/cut-folders.webp", 440, 744], frag: <Course /> },
 ];
 
 export function ServiceTiles() {
@@ -69,7 +69,8 @@ export function ServiceTiles() {
         <Link className={`tile tile--${t.tone}${t.top ? " tile--ftop" : ""}`} href={t.href} id={`svc-${t.id}`} key={t.id}>
           {t.badge && <span className="tile__badge"><b>{t.badge[0]}</b><span>{t.badge[1]}</span></span>}
           <div className="tile__art" aria-hidden="true">
-            <div className="tile__photo"><Crop photo={t.photo} sizes="(max-width: 900px) 90vw, 560px" /></div>
+            <div className={`tile__photo${t.cut ? " tile__photo--soft" : ""}`}><Crop photo={t.photo} sizes="(max-width: 900px) 90vw, 560px" /></div>
+            {t.cut && <img className="tile__cut" src={t.cut[0]} alt="" width={t.cut[1]} height={t.cut[2]} loading="lazy" />}
             {t.frag}
           </div>
           <div className="tile__copy">

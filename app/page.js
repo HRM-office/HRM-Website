@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FileRack, Folder3D, RibCube } from "@/components/art";
+import { FileRack, RibCube } from "@/components/art";
 import { Compare } from "@/components/compare";
 import { FlagStack } from "@/components/flags";
 import { HeroPanel } from "@/components/hero-panel";
@@ -41,7 +41,6 @@ export default function Home() {
       <section className="hero dark">
         <HeroBg variant="home" />
         <div className="hero__art" aria-hidden="true">
-          <Folder3D className="cube--a" />
           <RibCube tone="amber" className="cube--b" />
           <RibCube tone="navy" className="cube--c" />
           <FileRack className="cube--d" />
